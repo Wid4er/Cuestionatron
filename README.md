@@ -52,6 +52,4 @@ Cada pregunta debe tener al menos una respuesta correcta y una incorrecta. Vario
 nota = máximo(0, (aciertos − fallos × penalización) / preguntas del intento × 10)
 ```
 
-Al sacar 9 o más aparecen globitos y suena la música incluida. También hay una pequeña visita sorpresa del ganso bailón, con un 0,1 % de probabilidad por pregunta.
-
 Para compilar los ejecutables, ver las comprobaciones y consultar los detalles de funcionamiento: [guía local y compilación](ENTORNO_LOCAL.md).
