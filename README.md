@@ -2,6 +2,8 @@
 
 Programa local para practicar preguntas tipo test a partir de archivos Markdown. Permite combinar cuestionarios, limitar las preguntas de cada intento y configurar las opciones y la penalización por fallo.
 
+![Interfaz de Cuestionatron con el selector de cuestionarios y los ajustes del test](docs/capturas/interfaz.png)
+
 ## Descargar
 
 - [Windows de 64 bits](https://github.com/Wid4er/Cuestionatron/releases/latest/download/Cuestionatron-Windows.zip): extrae todo el ZIP y abre **Cuestionatron.exe**. Conserva las carpetas **_interno** y **Cuestionarios** junto al ejecutable. No necesitas instalar Python.
