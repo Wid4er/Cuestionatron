@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.venv/
+.DS_Store
+.cuestionatron/
+Cuestionatron
+Cuestionatron.desktop
+Entregables/
+/*.mp3
+.agents/
+.codex/
+.aws/

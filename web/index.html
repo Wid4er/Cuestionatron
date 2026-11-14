@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#6752d9">
+  <meta name="description" content="Combina tus cuestionarios, practica a tu ritmo y revisa lo que has aprendido.">
+  <title>Cuestionatron · Tu espacio de práctica</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="Cuestionatron, inicio"><img src="/favicon.svg" width="38" height="38" alt=""><span>cuestionatron<span class="brand-dot">.</span></span></a>
+      <div class="sidebar-label">TU ESPACIO DE PRÁCTICA</div>
+      <nav aria-label="Etapas del cuestionario">
+        <ol class="steps">
+          <li class="active" data-step="setup"><span class="step-number">01</span><span>Preparar test<small>Elige qué quieres repasar</small></span></li>
+          <li data-step="quiz"><span class="step-number">02</span><span>A tu ritmo<small>Concéntrate y responde</small></span></li>
+          <li data-step="results"><span class="step-number">03</span><span>Ver resultados<small>Aprende de cada intento</small></span></li>
+        </ol>
+      </nav>
+      <div class="sidebar-note"><span class="note-spark" aria-hidden="true">✳</span><p>Un poco de práctica.<br>Un paso más cerca.</p><span>El siguiente acierto empieza aquí.</span></div>
+      <div class="local-badge"><span></span> Local · Sin cuenta · Sin conexión</div>
+    </aside>
+
+    <main id="main-content">
+      <header class="topbar"><span id="breadcrumb">Biblioteca / Nuevo test</span><span class="topbar-tag">HECHO PARA APRENDER</span></header>
+      <div id="notice" class="notice" role="alert" hidden></div>
+
+      <section id="setup-view" class="view" aria-labelledby="setup-title">
+        <div class="page-heading"><p class="eyebrow"><span></span> CADA INTENTO CUENTA</p><h1 id="setup-title" tabindex="-1">Haz sitio a lo que sabes.</h1><p>Elige tus cuestionarios, prepara las reglas y ponte a prueba.</p></div>
+        <div class="setup-grid">
+          <div class="library">
+            <div class="section-heading"><div><h2>Tu biblioteca <span id="library-count" class="count-badge">0</span></h2><p>Selecciona uno o combina varios en un mismo test.</p></div><button type="button" id="refresh-button" class="icon-button" title="Actualizar cuestionarios" aria-label="Actualizar cuestionarios">↻</button></div>
+            <div class="library-toolbar"><label class="search-box"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><input id="search" type="search" placeholder="Buscar un cuestionario…" aria-label="Buscar cuestionarios"></label><button type="button" id="select-all" class="text-button">Seleccionar todos</button></div>
+            <div id="catalog" class="catalog" aria-live="polite"><p class="empty-state">Leyendo tu biblioteca…</p></div>
+            <details class="format-help"><summary><span aria-hidden="true">＋</span> Añade tus propios cuestionarios</summary><div><p>Guarda archivos <code>.md</code> en la carpeta <strong>Cuestionarios</strong> y pulsa actualizar. El nombre del archivo será el del cuestionario.</p><pre># ¿Cuál es la capital de Portugal?
++ Lisboa
+- Oporto
+- Coímbra</pre><p>Usa un <code>+</code> por cada respuesta correcta y un <code>-</code> por cada incorrecta. Varios <code>+</code> crean una pregunta de selección múltiple.</p></div></details>
+          </div>
+          <aside class="settings-panel" aria-labelledby="settings-title"><div class="settings-heading"><span class="settings-icon" aria-hidden="true">☷</span><h2 id="settings-title">A tu manera</h2></div><p class="settings-description">Tú eliges las reglas de este intento.</p>
+            <form id="settings-form">
+              <label class="field-label" for="question-limit">Preguntas por intento</label><div class="penalty-input"><input id="question-limit" type="number" min="1" step="1" value="20" aria-describedby="question-limit-help" required><span>preguntas</span></div><p id="question-limit-help" class="field-hint">Se eligen al azar entre todos los cuestionarios seleccionados. Si hay menos, se incluyen las disponibles.</p><label class="switch-label" for="all-questions"><span>Hacer todas las preguntas<small>Desactivar el límite de este intento</small></span><input id="all-questions" type="checkbox"><span class="switch" aria-hidden="true"></span></label>
+              <label class="field-label" for="answer-count">Opciones por pregunta</label><div class="stepper"><button type="button" id="less-options" aria-label="Mostrar una opción menos">−</button><input id="answer-count" type="number" min="2" max="21" value="4" required><button type="button" id="more-options" aria-label="Mostrar una opción más">+</button></div><p class="field-hint">De 2 a 21. Las incorrectas se eligen al azar.</p>
+              <label class="field-label" for="penalty">Penalización personalizada por fallo</label><div class="penalty-input"><input id="penalty" type="number" min="0" max="10" step="any" value="0" aria-describedby="penalty-help" required><span>aciertos</span></div><p id="penalty-help" class="field-hint">Escribe el valor que quieras, entre 0 y 10. Usa 0 para que los fallos no resten. Los botones son sugerencias.</p><div class="presets" aria-label="Sugerencias de penalización"><button type="button" data-penalty="0" class="selected">Nada</button><button type="button" data-penalty="0.25">0,25</button><button type="button" data-penalty="0.33">0,33</button><button type="button" data-penalty="0.5">0,50</button></div>
+              <label class="switch-label" for="shuffle"><span>Mezclar preguntas<small>Un orden distinto en cada intento</small></span><input id="shuffle" type="checkbox" checked><span class="switch" aria-hidden="true"></span></label>
+              <div class="selection-summary"><span>Tu próximo test</span><strong id="selection-total">0 preguntas</strong><small id="selection-sources">Selecciona un cuestionario para empezar</small></div>
+              <button type="submit" id="start-button" class="button primary" disabled>Empezar test <span aria-hidden="true">↗</span></button>
+              <p class="settings-footnote">Sin cronómetro. Las preguntas en blanco no restan.</p>
+            </form>
+          </aside>
+        </div>
+        <div class="rules-strip"><span class="rule-symbol" aria-hidden="true">i</span><p><strong>Una nota clara, de 0 a 10.</strong> (Aciertos − fallos × penalización) ÷ preguntas × 10. En selección múltiple debes marcar todas las correctas, sin añadir incorrectas.</p></div>
+      </section>
+
+      <section id="quiz-view" class="view" aria-labelledby="quiz-title" hidden>
+        <div class="quiz-topline"><span class="eyebrow">MODO PRÁCTICA</span><button type="button" id="quit-button" class="text-button">Salir del test</button></div>
+        <div class="quiz-layout"><div class="question-panel"><div class="question-meta"><span id="question-position" class="pill"></span><span id="question-source"></span></div><div class="progress-track"><div id="progress-bar"></div></div><h1 id="quiz-title" tabindex="-1"></h1><p id="question-instruction" class="question-instruction"></p><fieldset id="answers-fieldset"><legend class="sr-only">Opciones de respuesta</legend><div id="answers" class="answers"></div></fieldset><button type="button" id="clear-answer" class="text-button clear-button">Dejar en blanco</button><div class="question-footer"><button type="button" id="previous-button" class="button secondary">← Anterior</button><button type="button" id="next-button" class="button primary">Siguiente →</button></div></div>
+        <aside class="question-map-panel"><h2>Tu recorrido</h2><p id="answered-count" aria-live="polite"></p><div id="question-map" class="question-map" aria-label="Ir a una pregunta"></div><div class="map-legend"><span><i class="legend-answered"></i>Respondida</span><span><i></i>Pendiente</span></div><div class="quiz-reminder"><strong>A tu ritmo.</strong><p>Puedes volver a cualquier pregunta antes de corregir.</p><span id="penalty-reminder"></span></div><button type="button" id="finish-button" class="button secondary">Finalizar y corregir</button></aside></div>
+      </section>
+
+      <section id="results-view" class="view" aria-labelledby="results-title" hidden>
+        <div class="page-heading results-heading"><p class="eyebrow"><span></span> CADA INTENTO TE ENSEÑA ALGO</p><h1 id="results-title" tabindex="-1">Ya tienes tu resultado.</h1><p id="result-subtitle"></p></div>
+        <div class="results-summary"><div class="score-block"><div class="score-circle"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="score-track" cx="60" cy="60" r="51"/><circle id="score-ring" cx="60" cy="60" r="51"/></svg><div><strong id="score-value">0</strong><span>sobre 10</span></div></div><div><p class="eyebrow">TU NOTA</p><h2 id="score-message"></h2><p id="score-formula"></p></div></div><div class="result-stats"><div><span class="stat-dot correct-dot"></span><strong id="correct-total">0</strong><span>Aciertos</span></div><div><span class="stat-dot incorrect-dot"></span><strong id="incorrect-total">0</strong><span>Fallos</span></div><div><span class="stat-dot blank-dot"></span><strong id="blank-total">0</strong><span>En blanco</span></div></div></div>
+        <div id="celebration-banner" class="celebration-banner" hidden><div><strong>¡Una nota para celebrar!</strong><p>9 o más · Hall of Fame</p></div><button type="button" id="celebration-music-button" class="button secondary">Reproducir música</button></div>
+        <div class="results-actions"><button type="button" id="retry-button" class="button primary">Volver a practicar <span aria-hidden="true">↻</span></button><button type="button" id="new-test-button" class="button secondary">Preparar otro test</button></div>
+        <div class="review-heading"><div><h2>Repasa cada pregunta</h2><p>Las respuestas correctas aparecen en verde.</p></div><div class="review-filters" role="group" aria-label="Filtrar revisión"><button type="button" data-filter="all" class="active" aria-pressed="true">Todas</button><button type="button" data-filter="incorrect" aria-pressed="false">Fallos</button><button type="button" data-filter="blank" aria-pressed="false">En blanco</button></div></div><div id="review-list" class="review-list"></div>
+      </section>
+      <footer class="page-footer"><span>Cuestionatron</span><span>La práctica hace el progreso.</span></footer>
+    </main>
+  </div>
+  <div id="balloon-layer" class="balloon-layer" aria-hidden="true"></div>
+  <audio id="celebration-audio" src="/celebracion.mp3" preload="none"></audio>
+  <dialog id="confirm-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"><form method="dialog"><span class="dialog-icon" aria-hidden="true">?</span><h2 id="dialog-title"></h2><p id="dialog-description"></p><div class="dialog-actions"><button class="button secondary" value="cancel">Seguir con el test</button><button id="dialog-confirm" class="button primary" value="confirm">Corregir test</button></div></form></dialog>
+</body>
+</html>
